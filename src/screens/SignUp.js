@@ -25,7 +25,6 @@ const style = makeStyles((theme) =>
         display: "none",
       },
     },
-
     logo: {
       width: "198px",
     },
@@ -137,7 +136,10 @@ const style = makeStyles((theme) =>
 );
 export default function SignUp(props) {
   const classes = style();
-  const [state, setState] = React.useState({ email: "" });
+  const [state, setState] = React.useState({
+    email: "",
+    errors: "",
+  });
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -151,9 +153,9 @@ export default function SignUp(props) {
     let email = state.email;
 
     if (isValidEmail(email)) {
-      props.history.push("/sign_in");
+      props.history.push("/email");
     } else {
-      alert("Please end the valid email address");
+      setState({ errors: "Please fill the valid details" });
     }
   };
   return (
@@ -204,7 +206,7 @@ export default function SignUp(props) {
                 autoComplete="email"
                 autoFocus
               />
-              <small className={classes.errormessage}></small>
+              <small className={classes.errormessage}>{state.errors}</small>
             </div>
           </div>
           <div className={classes.submitButton} onClick={submitAction}>

@@ -1,6 +1,7 @@
 import React from "react";
 import SignUp from "../screens/SignUp";
 import SignIn from "../screens/SignIn";
+import New from "../screens/CheckEmail";
 
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 
@@ -10,6 +11,7 @@ export default function RouterPage() {
       <Switch>
         <Route exact path="/" component={SignUp} />
         <Route exact path="/sign_in" component={SignIn} />
+        <Route exact path="/email" component={New} />
       </Switch>
     </BrowserRouter>
   );

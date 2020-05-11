@@ -11,6 +11,7 @@ const style = makeStyles((theme) =>
       flexDirection: "row",
       justifyContent: "center",
       height: "100vh",
+      overflow: "hidden",
     },
     leftContainer: {
       background: "linear-gradient(332deg, #2f74eb, #2a68d3)",
@@ -102,7 +103,7 @@ const style = makeStyles((theme) =>
       },
     },
     formItem: {
-      paddingBottom: "35px",
+      marginBottom: "35px",
       position: "relative",
     },
     errormessage: {
@@ -147,7 +148,7 @@ export default function SignIn(props) {
   const [state, setState] = React.useState({
     email: "",
     password: "",
-    hidePassword: true,
+    errors: "",
   });
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -165,13 +166,12 @@ export default function SignIn(props) {
       if (email === "sajjad@gmail.com" && password === "Sajjad123") {
         props.history.push("/");
       } else {
-        alert("Email and Password Not matched");
+        setState({ errors: "Please fill the valid details" });
       }
     } else {
-      alert("please enter valid email or password");
+      setState({ errors: "Please fill the valid details" });
     }
   };
-
   const showPassword = () => {
     console.log("showpass");
   };
@@ -223,7 +223,7 @@ export default function SignIn(props) {
                 onChange={handleChange}
                 autoFocus
               />
-              <small className={classes.errormessage}>{""}</small>
+              <small className={classes.errormessage}>{state.errors}</small>
             </div>
             <div className={classes.formItem}>
               <TextField
@@ -238,11 +238,10 @@ export default function SignIn(props) {
                 value={state.password || ""}
                 onChange={handleChange}
               />
-              <small className={classes.errormessage}>{""}</small>
-
               <span className={classes.showPassword} onClick={showPassword}>
                 <i className="fa fa-eye fa-lg" aria-hidden="true"></i>
               </span>
+              <small className={classes.errormessage}>{state.errors}</small>
             </div>
             <div className={classes.forgotPasswd}>
               <Link to="/sign_in">Forgot your password?</Link>
