@@ -66,7 +66,8 @@ const style = makeStyles((theme) =>
       "&:hover": {
         cursor: "pointer",
         color: "white",
-        backgroundColor: "#4f8dff",
+        backgroundColor: "#2f74eb",
+        border: "2px solid #2f74eb",
       },
     },
 
@@ -104,6 +105,10 @@ const style = makeStyles((theme) =>
       paddingBottom: "20px",
       position: "relative",
     },
+    errormessage: {
+      color: "#fa675c",
+      fontSize: "13px",
+    },
     submitButton: {
       color: "white",
       backgroundColor: "rgba(47, 116, 235, 0.5)",
@@ -114,6 +119,7 @@ const style = makeStyles((theme) =>
       marginBottom: "30px",
       "&:hover": {
         cursor: "pointer",
+        backgroundColor: "#2f74eb",
       },
     },
     desc: {
@@ -131,9 +137,8 @@ const style = makeStyles((theme) =>
 );
 export default function SignUp(props) {
   const classes = style();
-  const [state, setState] = React.useState({
-    email: "",
-  });
+  const [state, setState] = React.useState({ email: "" });
+
   const handleChange = (e) => {
     const { value, name } = e.target;
     setState({
@@ -155,10 +160,7 @@ export default function SignUp(props) {
     <div className={classes.signupContainer}>
       <div className={classes.leftContainer}>
         <div className={classes.logo}>
-          <img
-            src={require("../../assets/ic-job-done-logo@3x.png")}
-            alt="logo"
-          />
+          <img src={require("../assets/ic-job-done-logo@3x.png")} alt="logo" />
         </div>
         <div className={classes.happierPlace}>
           A happier place for people to work together.
@@ -181,7 +183,7 @@ export default function SignUp(props) {
           <div className={classes.welcome}>
             <strong>Welcome at JobDone</strong>
             <div className={classes.hand}>
-              <img src={require("../../assets/handEmoji.png")} alt="hand" />
+              <img src={require("../assets/handEmoji.png")} alt="hand" />
             </div>
           </div>
           <div className={classes.address}>
@@ -195,12 +197,14 @@ export default function SignUp(props) {
                 fullWidth
                 id="email"
                 label="E-Mail"
+                placeholder="Enter E-Mail"
                 name="email"
                 value={state.email || ""}
                 onChange={handleChange}
                 autoComplete="email"
                 autoFocus
               />
+              <small className={classes.errormessage}></small>
             </div>
           </div>
           <div className={classes.submitButton} onClick={submitAction}>

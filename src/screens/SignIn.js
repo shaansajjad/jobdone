@@ -3,6 +3,7 @@ import { makeStyles, createStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import { isValidEmail, isValidPassword } from "../regex/Validation";
+
 const style = makeStyles((theme) =>
   createStyles({
     signupContainer: {
@@ -65,7 +66,8 @@ const style = makeStyles((theme) =>
       "&:hover": {
         cursor: "pointer",
         color: "white",
-        backgroundColor: "#4f8dff",
+        backgroundColor: "#2f74eb",
+        border: "2px solid #2f74eb",
       },
     },
 
@@ -100,13 +102,19 @@ const style = makeStyles((theme) =>
       },
     },
     formItem: {
-      paddingBottom: "20px",
+      paddingBottom: "35px",
       position: "relative",
+    },
+    errormessage: {
+      color: "#fa675c",
+      fontSize: "13px",
+      margin: "0",
+      padding: "0",
     },
     showPassword: {
       position: "absolute",
       right: "0",
-      bottom: "32px",
+      bottom: "43px",
       cursor: "pointer",
       color: "rgba(0, 30, 82, 0.48)",
     },
@@ -129,6 +137,7 @@ const style = makeStyles((theme) =>
       marginBottom: "30px",
       "&:hover": {
         cursor: "pointer",
+        backgroundColor: "#2f74eb",
       },
     },
   })
@@ -170,10 +179,7 @@ export default function SignIn(props) {
     <div className={classes.signupContainer}>
       <div className={classes.leftContainer}>
         <div className={classes.logo}>
-          <img
-            src={require("../../assets/ic-job-done-logo@3x.png")}
-            alt="logo"
-          />
+          <img src={require("../assets/ic-job-done-logo@3x.png")} alt="logo" />
         </div>
         <div className={classes.happierPlace}>
           A happier place for people to work together.
@@ -193,11 +199,11 @@ export default function SignIn(props) {
         <div className={classes.rightContainerMain}>
           <div className={classes.welcome}>
             <div className={classes.hand}>
-              <img src={require("../../assets/rightHand.png")} alt="hand" />
+              <img src={require("../assets/rightHand.png")} alt="hand" />
             </div>
             <strong> Log in</strong>
             <div className={classes.hand}>
-              <img src={require("../../assets/leftHand.png")} alt="hand" />
+              <img src={require("../assets/leftHand.png")} alt="hand" />
             </div>
           </div>
           <div className={classes.address}>
@@ -211,11 +217,13 @@ export default function SignIn(props) {
                 id="email"
                 label="E-Mail"
                 name="email"
+                placeholder="Enter E-Mail"
                 autoComplete="email"
                 value={state.email || ""}
                 onChange={handleChange}
                 autoFocus
               />
+              <small className={classes.errormessage}>{""}</small>
             </div>
             <div className={classes.formItem}>
               <TextField
@@ -223,12 +231,15 @@ export default function SignIn(props) {
                 fullWidth
                 name="password"
                 label="Password"
+                placeholder="Enter Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
                 value={state.password || ""}
                 onChange={handleChange}
               />
+              <small className={classes.errormessage}>{""}</small>
+
               <span className={classes.showPassword} onClick={showPassword}>
                 <i className="fa fa-eye fa-lg" aria-hidden="true"></i>
               </span>

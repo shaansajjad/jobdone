@@ -1,6 +1,6 @@
 import React from "react";
-import SignUp from "./screens/SignUp";
-import SignIn from "./screens/SignIn";
+import SignUp from "../screens/SignUp";
+import SignIn from "../screens/SignIn";
 
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 
