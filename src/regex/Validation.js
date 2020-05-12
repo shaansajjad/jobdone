@@ -11,3 +11,10 @@ export const isValidPassword = (password) => {
   if (regex.test(password)) return true;
   return false;
 };
+
+export const isValidName = (name) => {
+  let pattern = /^([a-zA-Z\s]){3,30}$/;
+  let regex = RegExp(pattern);
+  if (regex.test(name)) return true;
+  return false;
+};

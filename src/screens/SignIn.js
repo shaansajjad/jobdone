@@ -86,6 +86,7 @@ const style = makeStyles((theme) =>
       lineHeight: "36px",
       color: "#16243d",
       display: "flex",
+      marginBottom: "20px",
     },
     hand: {
       width: "30px",
@@ -103,7 +104,7 @@ const style = makeStyles((theme) =>
       },
     },
     formItem: {
-      marginBottom: "35px",
+      marginBottom: "20px",
       position: "relative",
     },
     errormessage: {
@@ -115,7 +116,8 @@ const style = makeStyles((theme) =>
     showPassword: {
       position: "absolute",
       right: "0",
-      bottom: "43px",
+      // bottom: "43px",
+      top: "27px",
       cursor: "pointer",
       color: "rgba(0, 30, 82, 0.48)",
     },
@@ -149,6 +151,7 @@ export default function SignIn(props) {
     email: "",
     password: "",
     errors: "",
+    showPassword: false,
   });
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -157,13 +160,13 @@ export default function SignIn(props) {
       ...{ [name]: value },
     });
   };
+
   const submitAction = (val) => {
     val.preventDefault();
-    let email = state.email;
-    let password = state.password;
-
+    let { email, password } = state;
     if (isValidEmail(email) && isValidPassword(password)) {
       if (email === "sajjad@gmail.com" && password === "Sajjad123") {
+        console.log("dwsdwddcwsdsdx", email, password);
         props.history.push("/");
       } else {
         setState({ errors: "Please fill the valid details" });
@@ -174,6 +177,10 @@ export default function SignIn(props) {
   };
   const showPassword = () => {
     console.log("showpass");
+    setState({ ...state, showPassword: !state.showPassword });
+  };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
   return (
     <div className={classes.signupContainer}>
@@ -238,8 +245,16 @@ export default function SignIn(props) {
                 value={state.password || ""}
                 onChange={handleChange}
               />
-              <span className={classes.showPassword} onClick={showPassword}>
-                <i className="fa fa-eye fa-lg" aria-hidden="true"></i>
+              <span
+                className={classes.showPassword}
+                onClick={showPassword}
+                onMouseDown={handleMouseDownPassword}
+              >
+                {state.showPassword ? (
+                  <i className="fa fa-eye fa-lg" aria-hidden="true"></i>
+                ) : (
+                  <i className="fa fa-eye-slash" aria-hidden="true"></i>
+                )}
               </span>
               <small className={classes.errormessage}>{state.errors}</small>
             </div>

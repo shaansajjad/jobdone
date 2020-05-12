@@ -3,6 +3,8 @@ import { makeStyles, createStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import { isValidEmail } from "../regex/Validation";
+import ApiService from "../services/ApiService";
+import axios from "axios";
 
 const style = makeStyles((theme) =>
   createStyles({
@@ -84,6 +86,7 @@ const style = makeStyles((theme) =>
       lineHeight: "36px",
       color: "#16243d",
       display: "flex",
+      marginBottom: "20px",
     },
     hand: {
       width: "30px",
@@ -150,10 +153,16 @@ export default function SignUp(props) {
   };
   const submitAction = (val) => {
     val.preventDefault();
-    let email = state.email;
+    let { email } = state;
 
     if (isValidEmail(email)) {
-      props.history.push("/email");
+      axios
+        .post("https://jobdonedev.appskeeper.com/api/v1/auth/login", { email })
+        .then((res) => {
+          alert("mail send");
+          console.log("Message", res);
+          this.props.history.push("/check-mail");
+        });
     } else {
       setState({ errors: "Please fill the valid details" });
     }

@@ -12,11 +12,11 @@ const style = makeStyles((theme) =>
     },
     header: {
       backgroundColor: "#2f74eb",
-      maxWidth: "426px",
-      marginBottom: "70px",
+      width: "2%",
+      marginBottom: "50px",
       paddingRight: "4%",
       [theme.breakpoints.down("sm")]: {
-        maxWidth: "213px",
+        width: "10%",
       },
     },
     logo: {
@@ -26,14 +26,11 @@ const style = makeStyles((theme) =>
     maildesc: {
       maxWidth: "500px",
     },
-    emailImageContainer: {
-      padding: "30px 0",
-      width: "368px",
+    accountCreatedContainer: {
+      padding: "10px 0",
+      width: "276px",
     },
-    buttons: {
-      display: "flex",
-      justifyContent: "space-between",
-    },
+
     submitButton: {
       borderRadius: "28px",
       border: "2px solid #2a68d3",
@@ -58,6 +55,17 @@ const style = makeStyles((theme) =>
         padding: "12px 30px",
       },
     },
+    footerMessage: {
+      fontSize: "15px",
+      maxWidth: "460px",
+    },
+    footerMail: {
+      "& a": {
+        color: "#2a68d3",
+        textDecoration: "none",
+        fontWeight: "bold",
+      },
+    },
   })
 );
 export default function CheckEmail() {
@@ -70,20 +78,25 @@ export default function CheckEmail() {
         </div>
       </div>
       <div className={classes.mailContainer}>
-        <h2>Check your E-Mail!</h2>
+        <h2>Account Created</h2>
         <div className={classes.maildesc}>
-          We have sent you an E-Mail to danielle.feiken@gmail.com. Click on the
-          link inside it and we’re soon done!
+          <div className={classes.horray}>Hooray!!</div>
+          You’ve created your account, well done!
         </div>
-        <div className={classes.emailImageContainer}>
-          <img src={require("../assets/ic-email.svg")} alt="email" />
+        <div className={classes.accountCreatedContainer}>
+          <img
+            src={require("../assets/accountCreated.svg")}
+            alt="accountCreated"
+          />
         </div>
-        <div className={classes.buttons}>
-          <div className={classes.submitButton}>
-            <Link to="/">Back to Sign up</Link>
-          </div>
-          <div className={classes.submitButton}>
-            <Link to="/">Resend E-Mail</Link>
+        <div className={classes.submitButton}>
+          <Link to="/">Setup new Business</Link>
+        </div>
+        <div className={classes.footerMessage}>
+          If you want to join an existing business, please ask your team to
+          invite you over the E-Mail:{" "}
+          <div className={classes.footerMail}>
+            <Link to="#">danielle.feiken@gmail.com</Link>
           </div>
         </div>
       </div>
