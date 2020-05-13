@@ -3,7 +3,7 @@ import { makeStyles, createStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import MuiPhoneNumber from "material-ui-phone-number";
-import { isValidName } from "../regex/Validation";
+import { isValidName } from "../../regex/Validation";
 
 const style = makeStyles((theme) =>
   createStyles({
@@ -123,7 +123,7 @@ export default function SetPassword() {
     <div className={classes.emailcontainer}>
       <div className={classes.header}>
         <div className={classes.logo}>
-          <img src={require("../assets/ic-header-logo@3x.png")} alt="logo" />
+          <img src={require("../../assets/ic-header-logo@3x.png")} alt="logo" />
         </div>
       </div>
       <div className={classes.mailContainer}>

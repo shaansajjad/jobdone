@@ -2,7 +2,8 @@ import React from "react";
 import { makeStyles, createStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
-import { isValidEmail, isValidPassword } from "../regex/Validation";
+import { isValidEmail, isValidPassword } from "../../regex/Validation";
+import ApiService from "../../services/ApiService";
 
 const style = makeStyles((theme) =>
   createStyles({
@@ -164,13 +165,13 @@ export default function SignIn(props) {
   const submitAction = (val) => {
     val.preventDefault();
     let { email, password } = state;
+    let signInData = { email: state.email, password: state.password };
     if (isValidEmail(email) && isValidPassword(password)) {
-      if (email === "sajjad@gmail.com" && password === "Sajjad123") {
-        console.log("dwsdwddcwsdsdx", email, password);
+      ApiService.loginUsers(signInData).then((res) => {
+        alert("mail send");
+        console.log("Response", res);
         props.history.push("/");
-      } else {
-        setState({ errors: "Please fill the valid details" });
-      }
+      });
     } else {
       setState({ errors: "Please fill the valid details" });
     }
@@ -186,7 +187,10 @@ export default function SignIn(props) {
     <div className={classes.signupContainer}>
       <div className={classes.leftContainer}>
         <div className={classes.logo}>
-          <img src={require("../assets/ic-job-done-logo@3x.png")} alt="logo" />
+          <img
+            src={require("../../assets/ic-job-done-logo@3x.png")}
+            alt="logo"
+          />
         </div>
         <div className={classes.happierPlace}>
           A happier place for people to work together.
@@ -206,11 +210,11 @@ export default function SignIn(props) {
         <div className={classes.rightContainerMain}>
           <div className={classes.welcome}>
             <div className={classes.hand}>
-              <img src={require("../assets/rightHand.png")} alt="hand" />
+              <img src={require("../../assets/rightHand.png")} alt="hand" />
             </div>
             <strong> Log in</strong>
             <div className={classes.hand}>
-              <img src={require("../assets/leftHand.png")} alt="hand" />
+              <img src={require("../../assets/leftHand.png")} alt="hand" />
             </div>
           </div>
           <div className={classes.address}>

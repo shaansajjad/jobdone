@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { isValidPassword } from "../regex/Validation";
+import { isValidPassword } from "../../regex/Validation";
+import ApiService from "../../services/ApiService";
 
 const style = makeStyles((theme) =>
   createStyles({
@@ -110,6 +111,8 @@ export default function SetPassword() {
     errors: "",
     showPassword: false,
     checked: false,
+    deviceToken: "some device token",
+    platform: "3",
   });
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -120,11 +123,27 @@ export default function SetPassword() {
   };
   const setPassword = (val, props) => {
     val.preventDefault();
-    let { password, confirmpassword } = state;
-    if (isValidPassword(password) && isValidPassword(confirmpassword)) {
-      if (password === confirmpassword) {
-        console.log("passwords", password, confirmpassword);
-        // props.history.push("/");
+    let { password, confirmPassword } = state;
+    var setTokenLocalStorage = new URLSearchParams(window.location.search).get(
+      "token"
+    );
+    // let token = location.href.indexOf("token");
+    // let setTokenLocalStorage = location.href.substring(token);
+    localStorage.setItem("token", setTokenLocalStorage);
+    let getToken = localStorage.getItem("token");
+    let passwordData = {
+      password: state.password,
+      device_token: state.deviceToken,
+      token: getToken,
+      platform: state.platform,
+    };
+    if (isValidPassword(password) && isValidPassword(confirmPassword)) {
+      console.log("Password", password, confirmPassword);
+      if (password === confirmPassword) {
+        ApiService.setPassword(passwordData).then((res) => {
+          alert("mail send");
+          console.log("Response", res);
+        });
       } else {
         setState({ errors: "Password and Confirm Password do not match" });
       }
@@ -143,13 +162,13 @@ export default function SetPassword() {
     <div className={classes.emailcontainer}>
       <div className={classes.header}>
         <div className={classes.logo}>
-          <img src={require("../assets/ic-header-logo@3x.png")} alt="logo" />
+          <img src={require("../../assets/ic-header-logo@3x.png")} alt="logo" />
         </div>
       </div>
       <div className={classes.mailContainer}>
         <div className={classes.emailVerifiedButton}>
           <span className={classes.mailicon}>
-            <img src={require("../assets/mail.svg")} alt="mail" />
+            <img src={require("../../assets/mail.svg")} alt="mail" />
           </span>
           E-Mail verified!
         </div>

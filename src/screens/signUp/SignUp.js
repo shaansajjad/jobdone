@@ -2,9 +2,8 @@ import React from "react";
 import { makeStyles, createStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
-import { isValidEmail } from "../regex/Validation";
-import ApiService from "../services/ApiService";
-import axios from "axios";
+import { isValidEmail } from "../../regex/Validation";
+import ApiService from "../../services/ApiService";
 
 const style = makeStyles((theme) =>
   createStyles({
@@ -154,15 +153,14 @@ export default function SignUp(props) {
   const submitAction = (val) => {
     val.preventDefault();
     let { email } = state;
+    let emailObj = { email: state.email };
 
     if (isValidEmail(email)) {
-      axios
-        .post("https://jobdonedev.appskeeper.com/api/v1/auth/login", { email })
-        .then((res) => {
-          alert("mail send");
-          console.log("Message", res);
-          this.props.history.push("/check-mail");
-        });
+      ApiService.sendEmail(emailObj).then((res) => {
+        alert("mail send");
+        console.log("Response", res);
+        props.history.push("/check-mail");
+      });
     } else {
       setState({ errors: "Please fill the valid details" });
     }
@@ -171,7 +169,10 @@ export default function SignUp(props) {
     <div className={classes.signupContainer}>
       <div className={classes.leftContainer}>
         <div className={classes.logo}>
-          <img src={require("../assets/ic-job-done-logo@3x.png")} alt="logo" />
+          <img
+            src={require("../../assets/ic-job-done-logo@3x.png")}
+            alt="logo"
+          />
         </div>
         <div className={classes.happierPlace}>
           A happier place for people to work together.
@@ -194,7 +195,7 @@ export default function SignUp(props) {
           <div className={classes.welcome}>
             <strong>Welcome at JobDone</strong>
             <div className={classes.hand}>
-              <img src={require("../assets/handEmoji.png")} alt="hand" />
+              <img src={require("../../assets/handEmoji.png")} alt="hand" />
             </div>
           </div>
           <div className={classes.address}>
