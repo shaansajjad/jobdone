@@ -150,8 +150,8 @@ export default function SignUp(props) {
       ...{ [name]: value },
     });
   };
-  const submitAction = (val) => {
-    val.preventDefault();
+  const submitAction = (e) => {
+    e.preventDefault();
     let { email } = state;
     let emailObj = { email: state.email };
 

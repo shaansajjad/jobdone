@@ -162,8 +162,8 @@ export default function SignIn(props) {
     });
   };
 
-  const submitAction = (val) => {
-    val.preventDefault();
+  const submitAction = (e) => {
+    e.preventDefault();
     let { email, password } = state;
     let signInData = { email: state.email, password: state.password };
     if (isValidEmail(email) && isValidPassword(password)) {

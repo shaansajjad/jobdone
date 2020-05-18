@@ -6,13 +6,16 @@ const SETPASSWORD =
   "https://jobdonedev.appskeeper.com/api/v1/users/set-password";
 const PROFILESETUP =
   "https://jobdonedev.appskeeper.com/api/v1/users/profile-setup";
+
+const LOCATION =
+  "https://jobdonedev.appskeeper.com/api/v1/business/add-location-team";
+
 let config = {
   auth: {
     username: "job_done",
     password: "job@done@123",
   },
 };
-
 class ApiService {
   sendEmail(email) {
     console.log("debugger");
@@ -27,6 +30,9 @@ class ApiService {
   }
   profileSetup(data) {
     return axios.post(PROFILESETUP, data);
+  }
+  location(allLocations) {
+    return axios.post(LOCATION, allLocations, config);
   }
 }
 export default new ApiService();
